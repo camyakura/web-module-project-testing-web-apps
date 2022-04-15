@@ -32,6 +32,11 @@ describe('Contact Form Component', () => {
     });
 
     test('renders THREE error messages if user enters no values into any fields.', async () => {
+        const submitButton = screen.getByRole('button')
+        fireEvent.click(submitButton)
+
+        const errorMessage = await screen.queryAllByTestId('error')
+        expect(errorMessage).toHaveLength(3)
 
     });
 
