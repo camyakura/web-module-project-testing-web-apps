@@ -41,7 +41,16 @@ describe('Contact Form Component', () => {
     });
 
     test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
+        const firstNameInput = screen.getByPlaceholderText('Edd')
+        const lastNameInput = screen.getByPlaceholderText('Burke')
+        const submitButton = screen.getByRole('button') 
+       
+        fireEvent.change(firstNameInput, {target:{value:'Cameron'}})
+        fireEvent.change(lastNameInput, {target:{value:'Yam'}})
+        fireEvent.click(submitButton)
 
+        const errorMessage = await screen.queryAllByTestId('error')
+        expect(errorMessage).toHaveLength(1)
     });
 
     test('renders "email must be a valid email address" if an invalid email is entered', async () => {
